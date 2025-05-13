@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Salle de Jeux</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3B82F6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-gray-900 text-white shadow-lg fixed w-full z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2" onclick="showPage('home')">
+                <i class="fas fa-gamepad text-blue-500 text-2xl"></i>
+                <span class="text-xl font-bold">Game<span class="text-blue-500">Hub</span></span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="nav-link text-white hover:text-blue-400 transition" onclick="showPage('home')">Accueil</a>
+                <a href="#" class="nav-link text-white hover:text-blue-400 transition" onclick="showPage('games')">Jeux</a>
+                <a href="#" class="nav-link text-white hover:text-blue-400 transition" onclick="showPage('events')">Événements</a>
+                <a href="#" class="nav-link text-white hover:text-blue-400 transition" onclick="showPage('pricing')">Tarifs</a>
+                <a href="#" class="nav-link text-white hover:text-blue-400 transition" onclick="showPage('contact')">Contact</a>
+            </div>
+            <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-gray-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="block px-3 py-2 rounded-md text-white hover:bg-gray-700" onclick="showPage('home')">Accueil</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-white hover:bg-gray-700" onclick="showPage('games')">Jeux</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-white hover:bg-gray-700" onclick="showPage('events')">Événements</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-white hover:bg-gray-700" onclick="showPage('pricing')">Tarifs</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-white hover:bg-gray-700" onclick="showPage('contact')">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-16">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <!-- Hero Section -->
+            <section class="hero text-white py-20 md:py-32">
+                <div class="container mx-auto px-6 text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">Bienvenue à <span class="text-blue-500">GameHub</span></h1>
+                    <p class="text-xl md:text-2xl mb-8">L'ultime destination pour les passionnés de jeux vidéo</p>
+                    <div class="flex flex-col md:flex-row justify-center gap-4">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105" onclick="showPage('pricing')">
+                            Voir nos tarifs
+                        </button>
+                        <button class="bg-transparent hover:bg-white hover:text-gray-900 text-white font-bold py-3 px-6 border-2 border-white rounded-lg transition transform hover:scale-105" onclick="showPage('contact')">
+                            Nous contacter
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center mb-12">Pourquoi choisir GameHub ?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition">
+                            <div class="text-blue-500 text-4xl mb-4">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Équipement haut de gamme</h3>
+                            <p class="text-gray-700">PC gaming dernier cri, consoles de nouvelle génération et écrans 144Hz pour une expérience optimale.</p>
+                        </div>
+                        <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition">
+                            <div class="text-blue-500 text-4xl mb-4">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Communauté active</h3>
+                            <p class="text-gray-700">Rejoignez une communauté de joueurs passionnés et participez à nos tournois et événements réguliers.</p>
+                        </div>
+                        <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition">
+                            <div class="text-blue-500 text-4xl mb-4">
+                                <i class="fas fa-concierge-bell"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Service premium</h3>
+                            <p class="text-gray-700">Snacks et boissons disponibles sur place, espace détente et personnel toujours à votre écoute.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Popular Games -->
+            <section class="py-16 bg-gray-100">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center mb-12">Nos jeux populaires</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Jeu 1" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-xl mb-2">League of Legends</h3>
+                                <p class="text-gray-700">MOBA compétitif avec plus de 140 champions uniques.</p>
+                            </div>
+                        </div>
+                        <div class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <img src="https://i.pinimg.com/736x/cf/ae/88/cfae886e263126f685510e2f45b82970.jpg" alt="Jeu 2" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-xl mb-2">Valorant</h3>
+                                <p class="text-gray-700">FPS tactique 5v5 avec des agents aux capacités uniques.</p>
+                            </div>
+                        </div>
+                        <div class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <img src="https://i.pinimg.com/736x/c7/ae/66/c7ae66b1ac804a763ae892d16fa61d5d.jpg" alt="Jeu 3" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-xl mb-2">Fortnite</h3>
+                                <p class="text-gray-700">Battle Royale avec construction et collaborations uniques.</p>
+                            </div>
+                        </div>
+                        <div class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <img src="https://i.pinimg.com/736x/95/c7/aa/95c7aaa322222a4b9155bd026ec69524.jpg" alt="Jeu 4" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-xl mb-2">Call of Duty: Warzone</h3>
+                                <p class="text-gray-700">Battle Royale intense dans l'univers de Call of Duty.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105" onclick="showPage('games')">
+                            Voir tous les jeux
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Games Page -->
+        <div id="games" class="page">
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-6">
+                    <h1 class="text-3xl font-bold text-center mb-12">Notre Sélection de Jeux</h1>
+                    
+                    <div class="mb-8 flex justify-center">
+                        <div class="inline-flex rounded-md shadow-sm">
+                            <button class="px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">
+                                Tous
+                            </button>
+                            <button class="px-4 py-2 text-sm font-medium bg-gray-100 hover:bg-gray-200">
+                                PC
+                            </button>
+                            <button class="px-4 py-2 text-sm font-medium bg-gray-100 hover:bg-gray-200">
+                                PlayStation
+                            </button>
+                            <button class="px-4 py-2 text-sm font-medium bg-gray-100 hover:bg-gray-200">
+                                Xbox
+                            </button>
+                            <button class="px-4 py-2 text-sm font-medium rounded-r-lg bg-gray-100 hover:bg-gray-200">
+                                Nintendo
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Game 1 -->
+                        <div class="game-card bg-gray-100 rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="League of Legends" class="w-full h-48 object-cover">
+                                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                                    PC
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-bold text-xl mb-2">League of Legends</h3>
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <span class="ml-1 text-gray-700">4.8</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">MOBA compétitif avec plus de 140 champions uniques.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">En ligne</span>
+                                    <span class="text-sm font-semibold">Gratuit</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Game 2 -->
+                        <div class="game-card bg-gray-100 rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <div class="relative">
+                                <img src="https://i.pinimg.com/736x/cf/ae/88/cfae886e263126f685510e2f45b82970.jpg" alt="Valorant" class="w-full h-48 object-cover">
+                                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                                    PC
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-bold text-xl mb-2">Valorant</h3>
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <span class="ml-1 text-gray-700">4.7</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">FPS tactique 5v5 avec des agents aux capacités uniques.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">En ligne</span>
+                                    <span class="text-sm font-semibold">Gratuit</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Game 3 -->
+                        <div class="game-card bg-gray-100 rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <div class="relative">
+                                <img src="https://i.pinimg.com/736x/c7/ae/66/c7ae66b1ac804a763ae892d16fa61d5d.jpg" alt="Fortnite" class="w-full h-48 object-cover">
+                                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                                    Multi
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-bold text-xl mb-2">Fortnite</h3>
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <span class="ml-1 text-gray-700">4.5</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">Battle Royale avec construction et collaborations uniques.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">En ligne</span>
+                                    <span class="text-sm font-semibold">Gratuit</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Game 4 -->
+                        <div class="game-card bg-gray-100 rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <div class="relative">
+                                <img src="https://i.pinimg.com/736x/95/c7/aa/95c7aaa322222a4b9155bd026ec69524.jpg" alt="Call of Duty: Warzone" class="w-full h-48 object-cover">
+                                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                                    Multi
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-bold text-xl mb-2">Call of Duty: Warzone</h3>
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <span class="ml-1 text-gray-700">4.6</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">Battle Royale intense dans l'univers de Call of Duty.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">En ligne</span>
+                                    <span class="text-sm font-semibold">Gratuit</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Game 5 -->
+                        <div class="game-card bg-gray-100 rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <div class="relative">
+                                <img src="https://i.pinimg.com/736x/d7/47/0e/d7470ef22299d94633ac067ec3a8319a.jpg" alt="FIFA 23" class="w-full h-48 object-cover">
+                                <div class="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded">
+                                    PS5
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-bold text-xl mb-2">FIFA 23</h3>
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <span class="ml-1 text-gray-700">4.3</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">Le meilleur jeu de football avec les dernières équipes et joueurs.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Local/Multi</span>
+                                    <span class="text-sm font-semibold">Payant</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Game 6 -->
+                        <div class="game-card bg-gray-100 rounded-lg overflow-hidden shadow-md transition duration-300">
+                            <div class="relative">
+                                <img src="https://i.pinimg.com/736x/f5/cd/34/f5cd34a68cfc4d29b7fdb52b1cec1f1e.jpg" alt="Mario Kart 8 Deluxe" class="w-full h-48 object-cover">
+                                <div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
+                                    Switch
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-bold text-xl mb-2">Mario Kart 8 Deluxe</h3>
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <span class="ml-1 text-gray-700">4.9</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 mb-3">Course de karting légendaire avec tous vos personnages préférés.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Local/Multi</span>
+                                    <span class="text-sm font-semibold">Payant</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Events Page -->
+        <div id="events" class="page">
+            <section class="py-16 bg-gray-100">
+                <div class="container mx-auto px-6">
+                    <h1 class="text-3xl font-bold text-center mb-12">Événements à venir</h1>
+                    
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Event 1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                            <div class="md:flex">
+                                <div class="md:w-1/3">
+                                    <img src="https://i.pinimg.com/736x/13/e3/d9/13e3d9a936456a34e4b2e8a8f1569b01.jpg" alt="Tournoi LoL" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h2 class="text-xl font-bold">Tournoi League of Legends</h2>
+                                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">5v5</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600 mb-3">
+                                        <i class="far fa-calendar-alt mr-2"></i>
+                                        <span>15 Juillet 2023 - 14h00</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600 mb-4">
+                                        <i class="fas fa-trophy mr-2"></i>
+                                        <span>Prix: 500€ + Goodies</span>
+                                    </div>
+                                    <p class="text-gray-700 mb-4">Participez à notre tournoi mensuel de League of Legends. Format 5v5, élimination directe. Inscription par équipe de 5 joueurs minimum.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-gray-500">12 places restantes</span>
+                                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">
+                                            S'inscrire
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Event 2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                            <div class="md:flex">
+                                <div class="md:w-1/3">
+                                    <img src="https://i.pinimg.com/736x/02/a7/91/02a791b5a6493669bfb94f6ccda2b7bc.jpg" alt="LAN Party" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h2 class="text-xl font-bold">LAN Party Nocturne</h2>
+                                        <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">Multi-jeux</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600 mb-3">
+                                        <i class="far fa-calendar-alt mr-2"></i>
+                                        <span>22 Juillet 2023 - 20h00 à 6h00</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600 mb-4">
+                                        <i class="fas fa-trophy mr-2"></i>
+                                        <span>Prix: Buffet gratuit + Lots</span>
+                                    </div>
+                                    <p class="text-gray-700 mb-4">Une nuit entière de gaming avec plusieurs tournois (Valorant, CS:GO, Rocket League) et des activités. Nourriture et boissons incluses.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-gray-500">8 places restantes</span>
+                                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">
+                                            S'inscrire
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Event 3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                            <div class="md:flex">
+                                <div class="md:w-1/3">
+                                    <img src="https://i.pinimg.com/736x/61/6c/c8/616cc879dcc03a6afc2f9edfff55eab9.jpg" alt="Fortnite Duo" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h2 class="text-xl font-bold">Tournoi Fortnite en Duo</h2>
+                                        <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">2v2</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600 mb-3">
+                                        <i class="far fa-calendar-alt mr-2"></i>
+                                        <span>29 Juillet 2023 - 16h00</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600 mb-4">
+                                        <i class="fas fa-trophy mr-2"></i>
+                                        <span>Prix: 300€ + V-Bucks</span>
+                                    </div>
+                                    <p class="text-gray-700 mb-4">Tournoi Fortnite en format duo. 5 parties, système de points selon les placements et les éliminations.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-gray-500">15 places restantes</span>
+                                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">
+                                            S'inscrire
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Pricing Page -->
+        <div id="pricing" class="page">
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-6">
+                    <h1 class="text-3xl font-bold text-center mb-12">Nos Tarifs</h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                        <!-- Basic Plan -->
+                        <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden transform transition hover:scale-105">
+                            <div class="px-6 py-8">
+                                <div class="text-center mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-800">Accès Basique</h3>
+                                    <p class="text-gray-600 mt-1">Pour les joueurs occasionnels</p>
+                                </div>
+                                <div class="text-center mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">5€</span>
+                                    <span class="text-gray-600">/ heure</span>
+                                </div>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Accès aux PC gaming</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Casque audio fourni</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Wi-Fi haut débit</span>
+                                    </li>
+                                    <li class="flex items-center text-gray-400">
+                                        <i class="fas fa-times text-red-400 mr-2"></i>
+                                        <span>Accès aux consoles</span>
+                                    </li>
+                                    <li class="flex items-center text-gray-400">
+                                        <i class="fas fa-times text-red-400 mr-2"></i>
+                                        <span>Boisson offerte</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-200 px-6 py-4 text-center">
+                                <button class="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded transition">
+                                    Choisir ce forfait
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Premium Plan -->
+                        <div class="bg-blue-600 rounded-lg shadow-lg overflow-hidden transform transition hover:scale-105 relative">
+                            <div class="absolute top-0 right-0 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 transform translate-x-2 -translate-y-2 rounded">
+                                POPULAIRE
+                            </div>
+                            <div class="px-6 py-8 text-white">
+                                <div class="text-center mb-4">
+                                    <h3 class="text-xl font-semibold">Accès Premium</h3>
+                                    <p class="text-blue-100 mt-1">Pour les vrais gamers</p>
+                                </div>
+                                <div class="text-center mb-6">
+                                    <span class="text-4xl font-bold">15€</span>
+                                    <span class="text-blue-200">/ 3 heures</span>
+                                </div>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-yellow-300 mr-2"></i>
+                                        <span>Accès illimité aux PC gaming</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-yellow-300 mr-2"></i>
+                                        <span>Casque haut de gamme</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-yellow-300 mr-2"></i>
+                                        <span>Accès aux consoles (PS5, Xbox)</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-yellow-300 mr-2"></i>
+                                        <span>Boisson offerte</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-yellow-300 mr-2"></i>
+                                        <span>10% de réduction sur les snacks</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-700 px-6 py-4 text-center">
+                                <button class="w-full bg-white hover:bg-gray-100 text-blue-600 font-bold py-2 px-4 rounded transition">
+                                    Choisir ce forfait
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- VIP Plan -->
+                        <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden transform transition hover:scale-105">
+                            <div class="px-6 py-8">
+                                <div class="text-center mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-800">Abonnement VIP</h3>
+                                    <p class="text-gray-600 mt-1">Pour les habitués</p>
+                                </div>
+                                <div class="text-center mb-6">
+                                    <span class="text-4xl font-bold text-gray-900">50€</span>
+                                    <span class="text-gray-600">/ mois</span>
+                                </div>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Accès illimité 7j/7</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>PC et consoles haut de gamme</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Casque premium réservé</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>2 boissons offertes par jour</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>20% de réduction sur les snacks</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-200 px-6 py-4 text-center">
+                                <button class="w-full bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded transition">
+                                    Choisir ce forfait
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Group Pricing -->
+                    <div class="mt-16 bg-gray-100 rounded-lg shadow-md p-8 max-w-4xl mx-auto">
+                        <h2 class="text-2xl font-bold text-center mb-6">Tarifs de groupe</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h3 class="text-xl font-semibold mb-3">Groupe de 5 personnes</h3>
+                                <p class="text-gray-700 mb-4">Parfait pour les groupes d'amis ou les petites équipes.</p>
+                                <div class="text-3xl font-bold text-blue-600 mb-2">20€ <span class="text-lg text-gray-600">/ heure</span></div>
+                                <p class="text-sm text-gray-500">Soit 4€ par personne</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h3 class="text-xl font-semibold mb-3">Groupe de 10 personnes</h3>
+                                <p class="text-gray-700 mb-4">Idéal pour les anniversaires ou les événements spéciaux.</p>
+                                <div class="text-3xl font-bold text-blue-600 mb-2">35€ <span class="text-lg text-gray-600">/ heure</span></div>
+                                <p class="text-sm text-gray-500">Soit 3.5€ par personne</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">
+                                Réserver pour un groupe
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page">
+            <section class="py-16 bg-gray-100">
+                <div class="container mx-auto px-6">
+                    <h1 class="text-3xl font-bold text-center mb-12">Nous contacter</h1>
+                    
+                    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="md:flex">
+                            <!-- Contact Form -->
+                            <div class="w-full md:w-1/2 p-8">
+                                <h2 class="text-2xl font-bold mb-6">Envoyez-nous un message</h2>
+                                <form>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                                            Nom complet
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Votre nom">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                                            Email
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Votre email">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="subject">
+                                            Sujet
+                                        </label>
+                                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="subject">
+                                            <option>Sélectionnez un sujet</option>
+                                            <option>Question sur les tarifs</option>
+                                            <option>Réservation</option>
+                                            <option>Événements</option>
+                                            <option>Autre</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-6">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2" for="message">
+                                            Message
+                                        </label>
+                                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" rows="4" placeholder="Votre message"></textarea>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition" type="button">
+                                            Envoyer
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <!-- Contact Info -->
+                            <div class="w-full md:w-1/2 bg-blue-600 text-white p-8">
+                                <h2 class="text-2xl font-bold mb-6">Nos coordonnées</h2>
+                                
+                                <div class="mb-6">
+                                    <h3 class="text-xl font-semibold mb-3">Adresse</h3>
+                                    <div class="flex items-start">
+                                        <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                                        <p>Logbessou Douala, Cameroun</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <h3 class="text-xl font-semibold mb-3">Horaires d'ouverture</h3>
+                                    <div class="flex items-start">
+                                        <i class="far fa-clock mt-1 mr-3"></i>
+                                        <div>
+                                            <p class="mb-1"><span class="font-medium">Lundi-Vendredi:</span> 14h - 22h</p>
+                                            <p class="mb-1"><span class="font-medium">Samedi:</span> 10h - 00h</p>
+                                            <p><span class="font-medium">Dimanche:</span> 10h - 20h</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <h3 class="text-xl font-semibold mb-3">Contact</h3>
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-phone-alt mr-3"></i>
+                                        <p>+237 696 354 128</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-envelope mr-3"></i>
+                                        <p>kanamax00@gmail.com</p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-3">Réseaux sociaux</h3>
+                                    <div class="flex space-x-4">
+                                        <a href="https://web.facebook.com/profile.php?id=100085879403753" class="text-white hover:text-blue-200 transition">
+                                            <i class="fab fa-facebook-f text-xl"></i>
+                                        </a>
+                                        <a href="https://x.com/jason_kitio" class="text-white hover:text-blue-200 transition">
+                                            <i class="fab fa-twitter text-xl"></i>
+                                        </a>
+                                        <a href="https://www.instagram.com/jason_kitio?igsh=MWRtZG9hOGYzYzViag==" class="text-white hover:text-blue-200 transition">
+                                            <i class="fab fa-instagram text-xl"></i>
+                                        </a>
+                                        <a href="https://t.me/Jason_Kitio" class="text-white hover:text-blue-200 transition">
+                                            <i class="fab fa-discord text-xl"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map -->
+                    <div class="mt-12 bg-white rounded-lg shadow-md overflow-hidden">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1439.2702235627778!2d9.776774983066844!3d4.082937389852748!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sfr!2scm!4v1747133580682!5m2!1sfr!2scm" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Game<span class="text-blue-500">Hub</span></h3>
+                    <p class="text-gray-400">La meilleure salle de jeux de Paris. Venez vivre une expérience gaming inoubliable.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Liens rapides</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" onclick="showPage('home')">Accueil</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" onclick="showPage('games')">Jeux</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" onclick="showPage('events')">Événements</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" onclick="showPage('pricing')">Tarifs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" onclick="showPage('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>Logbessou Douala, Cameroun</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            <span>+237 696 354 128</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>kanamax00@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Abonnez-vous pour recevoir nos offres spéciales et les derniers événements.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Votre email" class="px-4 py-2 w-full rounded-l focus:outline-none text-gray-900">
+                        <button class="bg-blue-600 hover:bg-blue-700 px-4 rounded-r transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2023 GameHub. Tous droits réservés.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="https://web.facebook.com/profile.php?id=100085879403753" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://x.com/jason_kitio" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/jason_kitio?igsh=MWRtZG9hOGYzYzViag==" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://t.me/Jason_Kitio" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
